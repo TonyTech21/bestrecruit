@@ -340,7 +340,7 @@ body {
 
 /* FORM */
 .hero-form-container {
-  background: rgba(255, 255, 255, 0.95);
+  background: #F3F2F2;
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 2.0rem;

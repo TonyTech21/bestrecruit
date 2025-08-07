@@ -64,7 +64,7 @@ router.get("/", (req, res) => {
 router.get("/about", (req, res) => {
   try {
     res.render("about", {
-      title: "About Us - Advanze Travels",
+      title: "About Us - Best Recruit",
       user: req.session.user,
     });
   } catch (error) {
@@ -84,7 +84,7 @@ router.get("/extended-registration", (req, res) => {
     }
 
     res.render("extended-registration", {
-      title: "Complete Registration - Advanze Travels",
+      title: "Complete Registration - Best Recruit",
       user: req.session.tempUser,
     });
   } catch (error) {

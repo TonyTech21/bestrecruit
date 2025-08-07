@@ -193,7 +193,7 @@ router.post('/send-email', requireAdmin, [
     const emailTemplate = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, #1e40af, #8b5cf6); padding: 2rem; text-align: center;">
-          <h1 style="color: white; margin: 0;">Advanze Travels</h1>
+          <h1 style="color: white; margin: 0;">Best Recruit</h1>
           <p style="color: white; margin: 0.5rem 0 0 0;">Your International Career Partner</p>
         </div>
         
@@ -208,27 +208,27 @@ router.post('/send-email', requireAdmin, [
           
           <div style="border-top: 1px solid #e5e7eb; padding-top: 1rem; color: #6b7280; font-size: 0.9rem;">
             <p><strong>Best regards,</strong><br>
-            The Advanze Travels Team</p>
+            The Best Recruit Team</p>
             
             <p style="margin-top: 1rem;">
-              📧 support@advancetravels.com<br>
+              📧 support@bestrecruit.com<br>
               📞 +120 185 54082<br>
-              🌐 www.advancetravels.com
+              🌐 www.bestrecruit.com
             </p>
           </div>
         </div>
         
         <div style="background: #f9fafb; padding: 1rem; text-align: center; color: #6b7280; font-size: 0.8rem;">
-          <p>© 2025 Advanze Travels. All rights reserved.</p>
+          <p>© 2025 Best Recruit. All rights reserved.</p>
         </div>
       </div>
     `;
 
     // Send email
     await transporter.sendMail({
-      from: `"Advanze Travels" <${process.env.EMAIL_USER || 'support@advancetravels.com'}>`,
+      from: `"Best Recruit" <${process.env.EMAIL_USER || 'support@bestrecruit.com'}>`,
       to: clientEmail,
-      subject: `${subject} - Advanze Travels`,
+      subject: `${subject} - Best Recruit`,
       html: emailTemplate
     });
 
@@ -295,7 +295,7 @@ router.get('/updates', requireAdmin, async (req, res) => {
     const updates = await Update.find().populate('author', 'name email').sort({ createdAt: -1 }).skip(skip).limit(limit);
 
     res.render('admin/updates', {
-      title: 'Updates Management - Advanze Travels',
+      title: 'Updates Management - Best Recruit',
       admin: req.session.admin,
       updates,
       currentPage: page,
