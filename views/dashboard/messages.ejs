@@ -1,0 +1,96 @@
+
+
+<section class="messages-section">
+    <div class="container">
+        <div class="messages-header">
+            <h1>Messages</h1>
+            <p>Chat with our counsellors</p>
+        </div>
+        
+        <div class="messages-container">
+            <div class="chat-container">
+                <div class="chat-messages-list" id="messagesList">
+                    <% if (messages && messages.length > 0) { %>
+                        <% messages.forEach(message => { %>
+                        <div class="message <%= message.senderType %>">
+                            <div class="message-content">
+                                <div class="message-text"><%= message.message %></div>
+                                <div class="message-time">
+                                    <%= new Date(message.createdAt).toLocaleString() %>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                    <% } else { %>
+                        <div class="welcome-message">
+                            <p>Hi <%= user.name %>! 👋</p>
+                            <p>Start a conversation with our counsellors. We're here to help!</p>
+                        </div>
+                    <% } %>
+                </div>
+                
+                <div class="chat-input-area">
+                    <div class="chat-input-container">
+                        <input type="text" id="messageInput" placeholder="Type your message..." maxlength="500">
+                        <button id="sendMessage">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+const socket = io();
+const sessionId = '<%= user.sessionId %>';
+const userName = '<%= user.name %>';
+
+// Join the user's room
+socket.emit('join-room', sessionId);
+
+// Send message
+document.getElementById('sendMessage').addEventListener('click', sendMessage);
+document.getElementById('messageInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    const input = document.getElementById('messageInput');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    // Send message via socket
+    socket.emit('chat-message', {
+        sessionId: sessionId,
+        sender: userName,
+        senderType: 'user',
+        message: message
+    });
+    
+    input.value = '';
+}
+
+// Listen for incoming messages
+socket.on('chat-message', (data) => {
+    addMessageToChat(data);
+});
+
+function addMessageToChat(data) {
+    const messagesList = document.getElementById('messagesList');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${data.senderType}`;
+    
+    messageDiv.innerHTML = `
+        <div class="message-content">
+            <div class="message-text">${data.message}</div>
+            <div class="message-time">${new Date(data.timestamp).toLocaleString()}</div>
+        </div>
+    `;
+    
+    messagesList.appendChild(messageDiv);
+    messagesList.scrollTop = messagesList.scrollHeight;
+}
+</script>

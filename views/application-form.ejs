@@ -1,0 +1,121 @@
+
+
+<section class="application-form-section">
+    <div class="container">
+        <div class="form-header">
+            <h1>Complete Your Application</h1>
+            <p>Help us find the perfect opportunity for you</p>
+        </div>
+        
+        <div class="application-form-container">
+            <form id="completeApplicationForm" enctype="multipart/form-data">
+                <div class="form-section">
+                    <h3>Professional Experience</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="experience">Years of Experience</label>
+                            <select name="experience" id="experience" required>
+                                <option value="">Select Experience</option>
+                                <option value="0-2">0-2 years</option>
+                                <option value="2-5">2-5 years</option>
+                                <option value="5-10">5-10 years</option>
+                                <option value="10+">10+ years</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profession">Current Profession</label>
+                            <input type="text" name="profession" id="profession" placeholder="e.g. Software Developer" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Education & Background</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="education">Highest Education</label>
+                            <select name="education" id="education" required>
+                                <option value="">Select Education</option>
+                                <option value="High School">High School</option>
+                                <option value="Bachelor">Bachelor's Degree</option>
+                                <option value="Master">Master's Degree</option>
+                                <option value="PhD">PhD</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="linkedin">LinkedIn Profile (Optional)</label>
+                            <input type="url" name="linkedin" id="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Relocation Preferences</h3>
+                    <div class="form-group">
+                        <label for="relocationReadiness">When are you ready to relocate?</label>
+                        <select name="relocationReadiness" id="relocationReadiness" required>
+                            <option value="">Select Timeline</option>
+                            <option value="Immediately">Immediately</option>
+                            <option value="Within 3 months">Within 3 months</option>
+                            <option value="Within 6 months">Within 6 months</option>
+                            <option value="Within 1 year">Within 1 year</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Additional Documents</h3>
+                    <div class="form-group">
+                        <label for="documents">Upload Supporting Documents (Optional)</label>
+                        <input type="file" name="documents" id="documents" multiple accept=".pdf,.doc,.docx,.jpg,.png">
+                        <small>You can upload certificates, transcripts, or other relevant documents</small>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-large">
+                        Complete Application
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+document.getElementById('completeApplicationForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Processing...';
+    
+    try {
+        const response = await fetch('/complete-application', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showNotification('Application completed successfully!', 'success');
+            setTimeout(() => {
+                window.location.href = result.redirect;
+            }, 1500);
+        } else {
+            showNotification(result.message || 'Something went wrong', 'error');
+        }
+    } catch (error) {
+        showNotification('Network error. Please try again.', 'error');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Complete Application <span class="btn-arrow">→</span>';
+    }
+});
+</script>

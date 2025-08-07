@@ -1,0 +1,968 @@
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<!-- Hero Section -->
+<section id="hero" class="hero">
+    <div class="hero-slideshow">
+        <div class="hero-slide active" style="background-image: url('https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')"></div>
+        <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')"></div>
+        <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')"></div>
+        <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')"></div>
+    </div>
+    <div class="hero-particles"></div>
+    
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Land Your Dream Job Abroad. 
+                    <span class="highlight">We Handle Everything.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Join over <strong>42,000+ professionals</strong> who've successfully relocated to <strong>25+ countries</strong> with our expert guidance. Your international career starts here.
+                </p>
+            </div>
+            
+            <div class="hero-form-container">
+                <div class="form-header">
+                    <h3>Start Your Journey Today</h3>
+                    <p>Free consultation • No hidden fees • 98% success rate</p>
+                </div>
+                <form id="applicationForm" class="hero-form" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="tel" name="phone" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <select name="preferredCountry" required>
+                                <option value="">Select Your Dream Country</option>
+                                <option value="Canada">🇨🇦 Canada</option>
+                                <option value="Australia">🇦🇺 Australia</option>
+                                <option value="Germany">🇩🇪 Germany</option>
+                                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                <option value="United States">🇺🇸 United States</option>
+                                <option value="New Zealand">🇳🇿 New Zealand</option>
+                                <option value="Denmark">🇩🇰 Denmark</option>
+                                <option value="Sweden">🇸🇪 Sweden</option>
+                                <option value="Netherlands">🇳🇱 Netherlands</option>
+                                <option value="Norway">🇳🇴 Norway</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group file-upload">
+                        <label for="resume" class="file-label">
+                            <span class="file-icon">📎</span>
+                            <span class="file-text">Upload Resume (PDF/DOC)</span>
+                        </label>
+                        <input type="file" name="resume" id="resume" accept=".pdf,.doc,.docx" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <span>Get Started Now</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- <div class="hero-stats">
+            <div class="stat-item" data-counter="42000" data-suffix="+">
+                <h3>42,000+</h3>
+                <p>Success Stories</p>
+            </div>
+            <div class="stat-item" data-counter="25" data-suffix="+">
+                <h3>25+</h3>
+                <p>Countries</p>
+            </div>
+            <div class="stat-item" data-counter="98" data-suffix="%">
+                <h3>98%</h3>
+                <p>Success Rate</p>
+            </div>
+            <div class="stat-item" data-counter="4" data-suffix=" Years">
+                <h3>4 Years</h3>
+                <p>Experience</p>
+            </div>
+        </div>
+    </div> -->
+</section>
+
+<!-- Countries Section -->
+<section id="countries" class="countries-section">
+    <div class="container">
+        <div class="section-header animate-on-scroll" data-animation="fadeInUp">
+            <h2>Best Countries to Work Abroad</h2>
+            <p>Discover your next career destination with our expert guidance and proven track record</p>
+        </div>
+        
+        <div class="countries-grid">
+            <div class="country-card animate-on-scroll" data-animation="fadeInUp" data-delay="100">
+                <div class="country-flag">🇨🇦</div>
+                <div class="country-map" style="background-image: url('https://images.pexels.com/photos/1680247/pexels-photo-1680247.jpeg?auto=compress&cs=tinysrgb&w=800')"></div>
+                <div class="country-overlay">
+                    <h3>Canada</h3>
+                    <p>The land of opportunities</p>
+                </div>
+                <div class="country-details">
+                    <h3>Canada 🇨🇦</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <span class="label">Average Salary</span>
+                            <span class="value">CAD $65,000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Visa Success Rate</span>
+                            <span class="value">95%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Healthcare</span>
+                            <span class="value">Universal</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Processing Time</span>
+                            <span class="value">6-8 months</span>
+                        </div>
+                    </div>
+                    <div class="country-benefits">
+                        <span class="benefit">Free Healthcare</span>
+                        <span class="benefit">PR Pathway</span>
+                        <span class="benefit">Quality Education</span>
+                        <span class="benefit">Multicultural</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="country-card animate-on-scroll" data-animation="fadeInUp" data-delay="200">
+                <div class="country-flag">🇦🇺</div>
+                <div class="country-map" style="background-image: url('https://images.pexels.com/photos/995764/pexels-photo-995764.jpeg?auto=compress&cs=tinysrgb&w=800')"></div>
+                <div class="country-overlay">
+                    <h3>Australia</h3>
+                    <p>Work-life balance paradise</p>
+                </div>
+                <div class="country-details">
+                    <h3>Australia 🇦🇺</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <span class="label">Average Salary</span>
+                            <span class="value">AUD $70,000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Visa Success Rate</span>
+                            <span class="value">92%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Work-Life Balance</span>
+                            <span class="value">Excellent</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Processing Time</span>
+                            <span class="value">4-6 months</span>
+                        </div>
+                    </div>
+                    <div class="country-benefits">
+                        <span class="benefit">Points System</span>
+                        <span class="benefit">Growing Economy</span>
+                        <span class="benefit">Beautiful Lifestyle</span>
+                        <span class="benefit">High Wages</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="country-card animate-on-scroll" data-animation="fadeInUp" data-delay="300">
+                <div class="country-flag">🇩🇪</div>
+                <div class="country-map" style="background-image: url('https://images.pexels.com/photos/161901/berlin-brandenburg-gate-landmark-symbol-161901.jpeg?auto=compress&cs=tinysrgb&w=800')"></div>
+                <div class="country-overlay">
+                    <h3>Germany</h3>
+                    <p>Europe's economic powerhouse</p>
+                </div>
+                <div class="country-details">
+                    <h3>Germany 🇩🇪</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <span class="label">Average Salary</span>
+                            <span class="value">€55,000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Visa Success Rate</span>
+                            <span class="value">88%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Job Security</span>
+                            <span class="value">Very High</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Processing Time</span>
+                            <span class="value">3-5 months</span>
+                        </div>
+                    </div>
+                    <div class="country-benefits">
+                        <span class="benefit">Strong Economy</span>
+                        <span class="benefit">Free Education</span>
+                        <span class="benefit">Central Europe</span>
+                        <span class="benefit">Innovation Hub</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="country-card animate-on-scroll" data-animation="fadeInUp" data-delay="400">
+                <div class="country-flag">🇬🇧</div>
+                <div class="country-map" style="background-image: url('https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800')"></div>
+                <div class="country-overlay">
+                    <h3>United Kingdom</h3>
+                    <p>Global business hub</p>
+                </div>
+                <div class="country-details">
+                    <h3>United Kingdom 🇬🇧</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <span class="label">Average Salary</span>
+                            <span class="value">£45,000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Visa Success Rate</span>
+                            <span class="value">85%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Cultural Richness</span>
+                            <span class="value">Exceptional</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Processing Time</span>
+                            <span class="value">3-4 months</span>
+                        </div>
+                    </div>
+                    <div class="country-benefits">
+                        <span class="benefit">Global Hub</span>
+                        <span class="benefit">NHS Healthcare</span>
+                        <span class="benefit">Rich Culture</span>
+                        <span class="benefit">English Speaking</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="country-card animate-on-scroll" data-animation="fadeInUp" data-delay="500">
+                <div class="country-flag">🇺🇸</div>
+                <div class="country-map" style="background-image: url('https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&w=800')"></div>
+                <div class="country-overlay">
+                    <h3>United States</h3>
+                    <p>Land of endless possibilities</p>
+                </div>
+                <div class="country-details">
+                    <h3>United States 🇺🇸</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <span class="label">Average Salary</span>
+                            <span class="value">$75,000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Visa Success Rate</span>
+                            <span class="value">82%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Career Growth</span>
+                            <span class="value">Unlimited</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Processing Time</span>
+                            <span class="value">6-12 months</span>
+                        </div>
+                    </div>
+                    <div class="country-benefits">
+                        <span class="benefit">Innovation Capital</span>
+                        <span class="benefit">High Salaries</span>
+                        <span class="benefit">Diverse Culture</span>
+                        <span class="benefit">Tech Hub</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="country-card animate-on-scroll" data-animation="fadeInUp" data-delay="600">
+                <div class="country-flag">🇳🇿</div>
+                <div class="country-map" style="background-image: url('https://images.pexels.com/photos/1006965/pexels-photo-1006965.jpeg?auto=compress&cs=tinysrgb&w=800')"></div>
+                <div class="country-overlay">
+                    <h3>New Zealand</h3>
+                    <p>Nature's paradise with opportunities</p>
+                </div>
+                <div class="country-details">
+                    <h3>New Zealand 🇳🇿</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <span class="label">Average Salary</span>
+                            <span class="value">NZD $65,000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Visa Success Rate</span>
+                            <span class="value">90%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Quality of Life</span>
+                            <span class="value">World-Class</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Processing Time</span>
+                            <span class="value">4-6 months</span>
+                        </div>
+                    </div>
+                    <div class="country-benefits">
+                        <span class="benefit">Natural Beauty</span>
+                        <span class="benefit">Safe Environment</span>
+                        <span class="benefit">Work-Life Balance</span>
+                        <span class="benefit">English Speaking</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Visa Section -->
+<section id="popular-visa" class="popular-visa-section">
+    <div class="container">
+        <div class="section-header animate-on-scroll" data-animation="fadeInUp">
+            <h2>Popular Visa Programs</h2>
+            <p>Explore the most sought-after visa pathways with our expert guidance</p>
+        </div>
+        
+        <div class="visa-intro animate-on-scroll" data-animation="fadeInUp" data-delay="200">
+            <h3>Expert Guidance for Visa Success</h3>
+            <p>Our specialized team has helped thousands navigate complex visa processes with a 98% success rate across all major destinations.</p>
+        </div>
+        
+        <div class="visa-grid">
+            <div class="visa-card animate-on-scroll" data-animation="fadeInUp" data-delay="100">
+                <div class="visa-flag" style="background-image: url('https://images.pexels.com/photos/1680247/pexels-photo-1680247.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                <div class="visa-country-name">Canada 🇨🇦</div>
+                <div class="visa-info">
+                    <h4>Canada Immigration</h4>
+                    <ul class="visa-types">
+                        <li>Express Entry Program</li>
+                        <li>Provincial Nominee Program (PNP)</li>
+                        <li>Skilled Worker Visa</li>
+                        <li>Student Visa</li>
+                        <li>Business Investor Visa</li>
+                        <li>Family Sponsorship</li>
+                        <li>Visitor Visa</li>
+                    </ul>
+                    <div class="visa-stats">
+                        <span>Success Rate: 95%</span>
+                        <span>Processing: 6-8 months</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="visa-card animate-on-scroll" data-animation="fadeInUp" data-delay="200">
+                <div class="visa-flag" style="background-image: url('https://images.pexels.com/photos/995764/pexels-photo-995764.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                <div class="visa-country-name">Australia 🇦🇺</div>
+                <div class="visa-info">
+                    <h4>Australia Immigration</h4>
+                    <ul class="visa-types">
+                        <li>Skilled Independent Visa (189)</li>
+                        <li>Skilled Nominated Visa (190)</li>
+                        <li>Temporary Skill Shortage (482)</li>
+                        <li>Student Visa (500)</li>
+                        <li>Business Innovation Visa</li>
+                        <li>Partner/Family Visa</li>
+                        <li>Visitor Visa</li>
+                    </ul>
+                    <div class="visa-stats">
+                        <span>Success Rate: 92%</span>
+                        <span>Processing: 4-6 months</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="visa-card animate-on-scroll" data-animation="fadeInUp" data-delay="300">
+                <div class="visa-flag" style="background-image: url('https://images.pexels.com/photos/161901/berlin-brandenburg-gate-landmark-symbol-161901.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                <div class="visa-country-name">Germany 🇩🇪</div>
+                <div class="visa-info">
+                    <h4>Germany Immigration</h4>
+                    <ul class="visa-types">
+                        <li>EU Blue Card</li>
+                        <li>Skilled Worker Visa</li>
+                        <li>Job Seeker Visa</li>
+                        <li>Student Visa</li>
+                        <li>Self-Employment Visa</li>
+                        <li>Family Reunion Visa</li>
+                        <li>Tourist/Business Visa</li>
+                    </ul>
+                    <div class="visa-stats">
+                        <span>Success Rate: 88%</span>
+                        <span>Processing: 3-5 months</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="visa-card animate-on-scroll" data-animation="fadeInUp" data-delay="400">
+                <div class="visa-flag" style="background-image: url('https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                <div class="visa-country-name">United Kingdom 🇬🇧</div>
+                <div class="visa-info">
+                    <h4>UK Immigration</h4>
+                    <ul class="visa-types">
+                        <li>Skilled Worker Visa</li>
+                        <li>Global Talent Visa</li>
+                        <li>Student Visa</li>
+                        <li>Innovator Founder Visa</li>
+                        <li>Health and Care Worker</li>
+                        <li>Family Visa</li>
+                        <li>Standard Visitor Visa</li>
+                    </ul>
+                    <div class="visa-stats">
+                        <span>Success Rate: 85%</span>
+                        <span>Processing: 3-4 months</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visa-card animate-on-scroll" data-animation="fadeInUp" data-delay="500">
+                <div class="visa-flag" style="background-image: url('https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                <div class="visa-country-name">United States 🇺🇸</div>
+                <div class="visa-info">
+                    <h4>USA Immigration</h4>
+                    <ul class="visa-types">
+                        <li>H-1B Specialty Occupation</li>
+                        <li>L-1 Intracompany Transfer</li>
+                        <li>O-1 Extraordinary Ability</li>
+                        <li>F-1 Student Visa</li>
+                        <li>EB-5 Investor Visa</li>
+                        <li>Family-Based Immigration</li>
+                        <li>B-1/B-2 Tourist/Business</li>
+                    </ul>
+                    <div class="visa-stats">
+                        <span>Success Rate: 82%</span>
+                        <span>Processing: 6-12 months</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visa-card animate-on-scroll" data-animation="fadeInUp" data-delay="600">
+                <div class="visa-flag" style="background-image: url('https://images.pexels.com/photos/1006965/pexels-photo-1006965.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                <div class="visa-country-name">New Zealand 🇳🇿</div>
+                <div class="visa-info">
+                    <h4>New Zealand Immigration</h4>
+                    <ul class="visa-types">
+                        <li>Skilled Migrant Category</li>
+                        <li>Essential Skills Work Visa</li>
+                        <li>Entrepreneur Work Visa</li>
+                        <li>Student Visa</li>
+                        <li>Investor Visa</li>
+                        <li>Partnership Visa</li>
+                        <li>Visitor Visa</li>
+                    </ul>
+                    <div class="visa-stats">
+                        <span>Success Rate: 90%</span>
+                        <span>Processing: 4-6 months</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visa-card animate-on-scroll" data-animation="fadeInUp" data-delay="700">
+                <div class="visa-flag" style="background-image: url('https://images.pexels.com/photos/1386604/pexels-photo-1386604.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                <div class="visa-country-name">Netherlands 🇳🇱</div>
+                <div class="visa-info">
+                    <h4>Netherlands Immigration</h4>
+                    <ul class="visa-types">
+                        <li>Highly Skilled Migrant</li>
+                        <li>EU Blue Card</li>
+                        <li>Self-Employed Person</li>
+                        <li>Student Visa</li>
+                        <li>Startup Visa</li>
+                        <li>Family Reunification</li>
+                        <li>Short-Stay Visa</li>
+                    </ul>
+                    <div class="visa-stats">
+                        <span>Success Rate: 87%</span>
+                        <span>Processing: 3-4 months</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visa-card animate-on-scroll" data-animation="fadeInUp" data-delay="800">
+                <div class="visa-flag" style="background-image: url('https://images.pexels.com/photos/1559821/pexels-photo-1559821.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                <div class="visa-country-name">Denmark 🇩🇰</div>
+                <div class="visa-info">
+                    <h4>Denmark Immigration</h4>
+                    <ul class="visa-types">
+                        <li>Pay Limit Scheme</li>
+                        <li>Positive List Scheme</li>
+                        <li>Fast-track Scheme</li>
+                        <li>Student Visa</li>
+                        <li>Start-up Denmark</li>
+                        <li>Family Reunification</li>
+                        <li>Tourist Visa</li>
+                    </ul>
+                    <div class="visa-stats">
+                        <span>Success Rate: 89%</span>
+                        <span>Processing: 2-4 months</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Work Opportunities Section -->
+<section id="opportunities" class="opportunities-section">
+    <div class="container">
+        <div class="section-header animate-on-scroll" data-animation="fadeInUp">
+            <h2>Work Opportunities & Market Demand</h2>
+            <p>Explore high-demand careers with exceptional growth potential across global markets</p>
+        </div>
+        
+        <div class="opportunities-grid">
+            <div class="opportunity-card animate-on-scroll" data-animation="fadeInUp" data-delay="100">
+                <div class="opportunity-image" style="background-image: url('https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+                <div class="opportunity-content">
+                    <h3>Technology & Software Development</h3>
+                    <p>The global tech industry is experiencing unprecedented growth with software developers, data scientists, AI specialists, and cybersecurity experts in extremely high demand. Major tech hubs like Silicon Valley, Toronto, Berlin, and Sydney offer competitive salaries ranging from $80,000 to $150,000+ annually, comprehensive benefits, stock options, and flexible remote work arrangements.</p>
+                    <div class="opportunity-stats">
+                        <span class="salary-range">$80K - $150K+</span>
+                        <span class="growth-rate">+15% annually</span>
+                    </div>
+                    <div class="demand-indicator high">Critical Shortage</div>
+                </div>
+            </div>
+            
+            <div class="opportunity-card animate-on-scroll" data-animation="fadeInUp" data-delay="200">
+                <div class="opportunity-image" style="background-image: url('https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+                <div class="opportunity-content">
+                    <h3>Healthcare & Medical Professionals</h3>
+                    <p>Healthcare systems worldwide face critical staffing shortages, creating exceptional opportunities for nurses, doctors, physiotherapists, medical technicians, and healthcare administrators. Countries like Canada, Australia, and the UK offer fast-track visa processing, excellent job security, comprehensive benefits, and opportunities for specialization in world-renowned healthcare systems.</p>
+                    <div class="opportunity-stats">
+                        <span class="salary-range">$60K - $120K</span>
+                        <span class="growth-rate">+12% annually</span>
+                    </div>
+                    <div class="demand-indicator high">Urgent Need</div>
+                </div>
+            </div>
+            
+            <div class="opportunity-card animate-on-scroll" data-animation="fadeInUp" data-delay="300">
+                <div class="opportunity-image" style="background-image: url('https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+                <div class="opportunity-content">
+                    <h3>Skilled Trades & Construction</h3>
+                    <p>Infrastructure development and construction booms across developed nations have created massive demand for electricians, plumbers, welders, carpenters, and construction managers. These roles offer excellent work-life balance, competitive wages ($50K-$90K), strong union protection, and are often fast-tracked for permanent residency programs due to critical skill shortages.</p>
+                    <div class="opportunity-stats">
+                        <span class="salary-range">$50K - $90K</span>
+                        <span class="growth-rate">+8% annually</span>
+                    </div>
+                    <div class="demand-indicator medium">High Demand</div>
+                </div>
+            </div>
+            
+            <div class="opportunity-card animate-on-scroll" data-animation="fadeInUp" data-delay="400">
+                <div class="opportunity-image" style="background-image: url('https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+                <div class="opportunity-content">
+                    <h3>Finance & Banking</h3>
+                    <p>Global financial centers in London, New York, Toronto, Frankfurt, and Sydney offer lucrative opportunities for financial analysts, investment advisors, accountants, risk managers, and fintech professionals. The industry provides excellent career progression, international exposure, performance bonuses, and salaries ranging from $70K to $200K+ in senior positions.</p>
+                    <div class="opportunity-stats">
+                        <span class="salary-range">$70K - $200K+</span>
+                        <span class="growth-rate">+6% annually</span>
+                    </div>
+                    <div class="demand-indicator medium">Steady Growth</div>
+                </div>
+            </div>
+            
+            <div class="opportunity-card animate-on-scroll" data-animation="fadeInUp" data-delay="500">
+                <div class="opportunity-image" style="background-image: url('https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+                <div class="opportunity-content">
+                    <h3>Engineering & Infrastructure</h3>
+                    <p>Massive infrastructure projects, renewable energy initiatives, and smart city developments create abundant opportunities for civil, mechanical, electrical, and environmental engineers. Countries investing heavily in green technology and sustainable infrastructure offer excellent career prospects with salaries from $75K-$130K and opportunities to work on world-changing projects.</p>
+                    <div class="opportunity-stats">
+                        <span class="salary-range">$75K - $130K</span>
+                        <span class="growth-rate">+10% annually</span>
+                    </div>
+                    <div class="demand-indicator high">Growing Fast</div>
+                </div>
+            </div>
+            
+            <div class="opportunity-card animate-on-scroll" data-animation="fadeInUp" data-delay="600">
+                <div class="opportunity-image" style="background-image: url('https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+                <div class="opportunity-content">
+                    <h3>Education & Research</h3>
+                    <p>International education systems value qualified teachers, professors, researchers, and education specialists. Opportunities range from K-12 education to university research positions, offering excellent job security, comprehensive benefits, professional development opportunities, and the chance to make a lasting impact on future generations while enjoying extended holidays and sabbaticals.</p>
+                    <div class="opportunity-stats">
+                        <span class="salary-range">$45K - $95K</span>
+                        <span class="growth-rate">+5% annually</span>
+                    </div>
+                    <div class="demand-indicator medium">Stable Demand</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Occupations & Salaries Section -->
+<section id="occupations" class="occupations-section">
+  <div class="container">
+    <div class="section-header animate-on-scroll" data-animation="fadeInUp">
+      <h2>Occupations & Average Salaries</h2>
+      <p>Gain insight into cross-country earning potential in major industries around the world</p>
+    </div>
+
+    <div class="salary-table-container animate-on-scroll" data-animation="fadeInUp" data-delay="200">
+      <table class="salary-table">
+        <thead>
+          <tr>
+            <th>Occupation</th>
+            <th>🇨🇦 Canada</th>
+            <th>🇦🇺 Australia</th>
+            <th>🇩🇪 Germany</th>
+            <th>🇬🇧 UK</th>
+            <th>🇺🇸 USA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Software Developer</strong></td>
+            <td>CAD $85,000</td>
+            <td>AUD $95,000</td>
+            <td>€70,000</td>
+            <td>£65,000</td>
+            <td>$105,000</td>
+          </tr>
+          <tr>
+            <td><strong>Registered Nurse</strong></td>
+            <td>CAD $75,000</td>
+            <td>AUD $80,000</td>
+            <td>€55,000</td>
+            <td>£35,000</td>
+            <td>$80,000</td>
+          </tr>
+          <tr>
+            <td><strong>Data Scientist</strong></td>
+            <td>CAD $95,000</td>
+            <td>AUD $110,000</td>
+            <td>€75,000</td>
+            <td>£70,000</td>
+            <td>$125,000</td>
+          </tr>
+          <tr>
+            <td><strong>Civil Engineer</strong></td>
+            <td>CAD $80,000</td>
+            <td>AUD $85,000</td>
+            <td>€65,000</td>
+            <td>£50,000</td>
+            <td>$90,000</td>
+          </tr>
+          <tr>
+            <td><strong>Marketing Manager</strong></td>
+            <td>CAD $70,000</td>
+            <td>AUD $85,000</td>
+            <td>€60,000</td>
+            <td>£55,000</td>
+            <td>$85,000</td>
+          </tr>
+          <tr>
+            <td><strong>Teacher</strong></td>
+            <td>CAD $60,000</td>
+            <td>AUD $70,000</td>
+            <td>€50,000</td>
+            <td>£35,000</td>
+            <td>$55,000</td>
+          </tr>
+          <tr>
+            <td><strong>Accountant</strong></td>
+            <td>CAD $65,000</td>
+            <td>AUD $75,000</td>
+            <td>€55,000</td>
+            <td>£45,000</td>
+            <td>$70,000</td>
+          </tr>
+          <tr>
+            <td><strong>Project Manager</strong></td>
+            <td>CAD $85,000</td>
+            <td>AUD $95,000</td>
+            <td>€68,000</td>
+            <td>£60,000</td>
+            <td>$95,000</td>
+          </tr>
+          <tr>
+            <td><strong>Electrician</strong></td>
+            <td>CAD $70,000</td>
+            <td>AUD $80,000</td>
+            <td>€50,000</td>
+            <td>£40,000</td>
+            <td>$65,000</td>
+          </tr>
+          <tr>
+            <td><strong>Financial Analyst</strong></td>
+            <td>CAD $75,000</td>
+            <td>AUD $85,000</td>
+            <td>€62,000</td>
+            <td>£50,000</td>
+            <td>$85,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- Why Choose Us Section -->
+<section id="why-choose-us" class="why-section">
+  <div class="container">
+    <div class="section-header animate-on-scroll" data-animation="fadeInUp">
+      <h2>Why Thousands Trust Advanze Travels</h2>
+      <p>We don’t just relocate people — we launch global careers. Discover why clients in over 50 countries rely on our expertise to transform their futures.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card animate-on-scroll" data-animation="fadeInUp" data-delay="100">
+        <div class="feature-icon"><i class="ph ph-target"></i></div>
+        <div class="feature-content">
+          <h3>Global Success, Proven Results</h3>
+          <p>Over 42,000 professionals placed worldwide. With 4+ years of dedicated global migration experience and a 98% success rate, we deliver outcomes that speak louder than promises.</p>
+        </div>
+      </div>
+
+      <div class="feature-card animate-on-scroll" data-animation="fadeInUp" data-delay="200">
+        <div class="feature-icon"><i class="ph ph-user-focus"></i></div>
+        <div class="feature-content">
+          <h3>Tailored Strategy for Your Career</h3>
+          <p>No generic plans — just personalized guidance crafted by certified experts. We align every visa and job strategy with your unique path, aspirations, and lifestyle.</p>
+        </div>
+      </div>
+
+      <div class="feature-card animate-on-scroll" data-animation="fadeInUp" data-delay="300">
+        <div class="feature-icon"><i class="ph ph-chart-bar"></i></div>
+        <div class="feature-content">
+          <h3>Industry-Leading Success Rate</h3>
+          <p>98% visa and job approval — backed by real data, real clients, and real global reach. We help you secure offers fast and relocate with full legal compliance.</p>
+        </div>
+      </div>
+
+      <div class="feature-card animate-on-scroll" data-animation="fadeInUp" data-delay="400">
+        <div class="feature-icon"><i class="ph ph-globe-hemisphere-west"></i></div>
+        <div class="feature-content">
+          <h3>Elite International Network</h3>
+          <p>Gain direct access to exclusive opportunities with Fortune 500s, national healthcare systems, and global tech leaders — connections that open doors few others can.</p>
+        </div>
+      </div>
+
+      <div class="feature-card animate-on-scroll" data-animation="fadeInUp" data-delay="500">
+        <div class="feature-icon"><i class="ph ph-handshake"></i></div>
+        <div class="feature-content">
+          <h3>Full-Circle Migration Support</h3>
+          <p>From visa to arrival, we handle everything: resume crafting, interviews, housing, airport pickup, and job integration. We’re your relocation partner — not just a service.</p>
+        </div>
+      </div>
+
+      <div class="feature-card animate-on-scroll" data-animation="fadeInUp" data-delay="600">
+        <div class="feature-icon"><i class="ph ph-lock-key"></i></div>
+        <div class="feature-content">
+          <h3>Transparency You Can Trust</h3>
+          <p>No hidden fees, no fine print. Real-time updates, clear pricing, and direct communication mean you’re always in control and fully informed every step of the way.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process Section -->
+<section id="process" class="process-section">
+    <div class="container">
+        <div class="section-header animate-on-scroll" data-animation="fadeInUp">
+            <h2>Our Proven 5-Step Success Process</h2>
+            <p>From initial consultation to successful settlement - we make your international career transition seamless</p>
+        </div>
+        
+        <div class="process-timeline">
+            <div class="process-step animate-on-scroll" data-animation="slideInLeft" data-delay="100">
+                <div class="step-number">1</div>
+                <div class="step-image" style="background-image: url('https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=300')"></div>
+                <div class="step-content">
+                    <h3>Comprehensive Assessment & Profile Creation</h3>
+                    <p>Submit your resume and complete our detailed assessment questionnaire. Our certified consultants evaluate your qualifications, work experience, education credentials, language proficiency, and career aspirations to create a personalized migration strategy. We conduct skills gap analysis and provide recommendations for enhancing your profile to meet international standards.</p>
+                    <div class="step-duration">Duration: 1-2 weeks</div>
+                </div>
+            </div>
+            
+            <div class="process-step animate-on-scroll" data-animation="slideInRight" data-delay="200">
+                <div class="step-number">2</div>
+                <div class="step-image" style="background-image: url('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=300')"></div>
+                <div class="step-content">
+                    <h3>Smart Matching & Opportunity Identification</h3>
+                    <p>Our advanced AI-powered system analyzes your profile against thousands of job opportunities across our global partner network. We identify the best matches based on your skills, experience, salary expectations, preferred destinations, and family considerations. Our team then personally vets each opportunity to ensure legitimacy and career growth potential.</p>
+                    <div class="step-duration">Duration: 2-3 weeks</div>
+                </div>
+            </div>
+            
+            <div class="process-step animate-on-scroll" data-animation="slideInLeft" data-delay="300">
+                <div class="step-number">3</div>
+                <div class="step-image" style="background-image: url('https://images.pexels.com/photos/5439381/pexels-photo-5439381.jpeg?auto=compress&cs=tinysrgb&w=300')"></div>
+                <div class="step-content">
+                    <h3>Interview Preparation & Employer Connection</h3>
+                    <p>We arrange interviews with pre-screened employers and provide intensive preparation including mock interviews, cultural briefings, technical coaching, and salary negotiation strategies. Our success rate in interview-to-offer conversion exceeds 85%. We also provide ongoing support during the negotiation process to secure the best possible terms.</p>
+                    <div class="step-duration">Duration: 3-6 weeks</div>
+                </div>
+            </div>
+            
+            <div class="process-step animate-on-scroll" data-animation="slideInRight" data-delay="400">
+                <div class="step-number">4</div>
+                <div class="step-image" style="background-image: url('https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=300')"></div>
+                <div class="step-content">
+                    <h3>Visa Processing & Legal Documentation</h3>
+                    <p>Upon receiving your job offer, our certified immigration lawyers and consultants handle all visa documentation, government applications, medical examinations, police clearances, and legal requirements. We ensure 100% compliance with immigration laws, expedite processing wherever possible, and provide regular updates on application status.</p>
+                    <div class="step-duration">Duration: 3-8 months</div>
+                </div>
+            </div>
+            
+            <div class="process-step animate-on-scroll" data-animation="slideInLeft" data-delay="500">
+                <div class="step-number">5</div>
+                <div class="step-image" style="background-image: url('https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=300')"></div>
+                <div class="step-content">
+                    <h3>Departure & Settlement Support</h3>
+                    <p>With your visa approved, we assist with travel arrangements, airport transfers, temporary accommodation, bank account setup, social insurance registration, and provide comprehensive pre-departure orientation. Our local settlement partners ensure smooth integration including school enrollment for children, healthcare registration, and community connections.</p>
+                    <div class="step-duration">Duration: Ongoing support</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Updates Section -->
+<section id="updates" class="updates-section">
+    <div class="container">
+        <div class="section-header animate-on-scroll" data-animation="fadeInUp">
+            <h2>Latest Immigration Updates</h2>
+            <p>Stay informed with the latest immigration news, policy changes, and success stories</p>
+        </div>
+        
+        <div class="updates-carousel animate-on-scroll" data-animation="fadeInUp" data-delay="200">
+            <div class="updates-track" id="updatesTrack">
+                <div class="update-card">
+                    <div class="update-image" style="background-image: url('https://images.pexels.com/photos/1680247/pexels-photo-1680247.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                    <div class="update-content">
+                        <div class="update-date">January 15, 2025</div>
+                        <h3 class="update-title">Canada Increases Immigration Targets for 2025</h3>
+                        <p class="update-excerpt">Canada announces ambitious plans to welcome 485,000 new permanent residents in 2025, creating unprecedented opportunities for skilled workers worldwide. The government has allocated additional resources to expedite processing times and expand provincial nominee programs.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="update-card">
+                    <div class="update-image" style="background-image: url('https://images.pexels.com/photos/995764/pexels-photo-995764.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                    <div class="update-content">
+                        <div class="update-date">January 12, 2025</div>
+                        <h3 class="update-title">Australia Launches New Tech Visa Program</h3>
+                        <p class="update-excerpt">Australia introduces streamlined visa processing for technology professionals, reducing wait times to just 30 days for qualified candidates. The new program targets AI specialists, cybersecurity experts, and software developers with fast-track permanent residency pathways.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="update-card">
+                    <div class="update-image" style="background-image: url('https://images.pexels.com/photos/161901/berlin-brandenburg-gate-landmark-symbol-161901.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                    <div class="update-content">
+                        <div class="update-date">January 10, 2025</div>
+                        <h3 class="update-title">Germany Expands EU Blue Card Eligibility</h3>
+                        <p class="update-excerpt">New regulations make it easier for skilled professionals to obtain EU Blue Cards, with reduced salary thresholds and expanded occupation lists. The changes particularly benefit IT professionals, engineers, and healthcare workers seeking opportunities in Europe's largest economy.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="update-card">
+                    <div class="update-image" style="background-image: url('https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=400')"></div>
+                    <div class="update-content">
+                        <div class="update-date">January 8, 2025</div>
+                        <h3 class="update-title">UK Healthcare Visa Fast-Track Program</h3>
+                        <p class="update-excerpt">The UK launches expedited visa processing for healthcare workers, addressing critical staffing shortages in the NHS. Qualified nurses, doctors, and allied health professionals can now receive visa decisions within 3 weeks, with family members included in fast-track processing.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-controls">
+                <button class="carousel-btn prev" id="prevUpdate" aria-label="Previous update">‹</button>
+                <button class="carousel-btn next" id="nextUpdate" aria-label="Next update">›</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials-section">
+    <div class="container">
+        <div class="section-header animate-on-scroll" data-animation="fadeInUp">
+            <h2>Success Stories from Our Clients</h2>
+            <p>Real people, real results. Here's what our clients say about their journey with Advanze Travels</p>
+        </div>
+        
+        <div class="testimonials-slider animate-on-scroll" data-animation="fadeInUp" data-delay="200">
+            <div class="testimonial-track" id="testimonialTrack">
+                <div class="testimonial-card">
+                    <div class="testimonial-image" style="background-image: url('https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200')"></div>
+                    <div class="testimonial-content">
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <p>"Advanze Travels transformed my life completely. Their team guided me through every step of the process, from optimizing my resume to securing a fantastic job offer in Toronto. I'm now working as a Senior Software Developer with an amazing salary and benefits package. The support didn't stop after I got my visa - they helped me settle in Canada and even connected me with other professionals in my field."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <p>Senior Software Developer, Toronto 🇨🇦</p>
+                            <span class="success-badge">Visa Approved in 7 months</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-image" style="background-image: url('https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200')"></div>
+                    <div class="testimonial-content">
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <p>"The entire process was incredibly smooth and professional. Within 6 months, I had multiple job offers from Melbourne and my visa was approved faster than I expected. The team's expertise in Australian immigration law and their connections with employers made all the difference. I'm now living my dream life in Australia with my family, and we couldn't be happier with our decision to work with Advanze Travels."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>James Mitchell</h4>
+                            <p>Marketing Manager, Melbourne 🇦🇺</p>
+                            <span class="success-badge">Multiple job offers received</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-image" style="background-image: url('https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=200')"></div>
+                    <div class="testimonial-content">
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <p>"I was initially skeptical about using a consultancy, but Advanze Travels exceeded all my expectations. They found me a nursing position in London with excellent benefits and helped my entire family relocate successfully. The pre-departure training was invaluable, and their ongoing support in the UK made our transition seamless. We're now permanent residents and couldn't be more grateful for their professional service."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Maria Rodriguez</h4>
+                            <p>Registered Nurse, London 🇬🇧</p>
+                            <span class="success-badge">Family successfully relocated</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-image" style="background-image: url('https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=200')"></div>
+                    <div class="testimonial-content">
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <p>"The expertise and knowledge of their counselors is truly unmatched in the industry. They helped me understand the complex German job market, prepared me thoroughly for interviews, and even assisted with salary negotiations. Now I'm working as a Data Scientist in Berlin for a leading tech company, earning more than I ever imagined possible. Their investment in my success was evident from day one."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Ahmed Hassan</h4>
+                            <p>Data Scientist, Berlin 🇩🇪</p>
+                            <span class="success-badge">Salary increased by 150%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-controls">
+                <button class="testimonial-btn prev" id="prevTestimonial" aria-label="Previous testimonial">‹</button>
+                <button class="testimonial-btn next" id="nextTestimonial" aria-label="Next testimonial">›</button>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>

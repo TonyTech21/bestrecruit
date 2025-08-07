@@ -1,0 +1,597 @@
+/* AdvanceTravels - Animation Stylesheet */
+
+/* Scroll-triggered animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.animate-on-scroll.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animations */
+.animate-on-scroll.delay-1 {
+  transition-delay: 0.1s;
+}
+
+.animate-on-scroll.delay-2 {
+  transition-delay: 0.2s;
+}
+
+.animate-on-scroll.delay-3 {
+  transition-delay: 0.3s;
+}
+
+.animate-on-scroll.delay-4 {
+  transition-delay: 0.4s;
+}
+
+/* Hover animations for cards */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Button animations */
+.btn-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(30, 64, 175, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(30, 64, 175, 0);
+  }
+}
+
+/* Loading spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid orange;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: orange; }
+}
+
+/* Bounce animation */
+.bounce {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Zoom in animation */
+.zoom-in {
+  animation: zoomIn 0.5s ease-out;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Rotate animation */
+.rotate {
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Shake animation */
+.shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 20%, 40%, 60%, 80%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+}
+
+/* Glow effect */
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px var(--primary-color),
+                0 0 10px var(--primary-color),
+                0 0 15px var(--primary-color);
+  }
+  to {
+    box-shadow: 0 0 20px var(--primary-color),
+                0 0 30px var(--primary-color),
+                0 0 40px var(--primary-color);
+  }
+}
+
+/* Progress bar animation */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: 4px;
+  transform: translateX(-100%);
+  animation: fillProgress 2s ease-out forwards;
+}
+
+@keyframes fillProgress {
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Gradient background animation */
+.gradient-bg {
+  background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Number counter animation */
+.counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Slide animations */
+.slide-in-up {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.slide-in-down {
+  animation: slideInDown 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Modal animations */
+.modal-enter {
+  animation: modalEnter 0.3s ease-out;
+}
+
+.modal-exit {
+  animation: modalExit 0.3s ease-out;
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modalExit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
+/* Ripple effect */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Parallax scroll */
+.parallax {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Smooth reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Attention seeker */
+.flash {
+  animation: flash 2s infinite;
+}
+
+@keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+/* Elastic animation */
+.elastic {
+  animation: elastic 1s ease-out;
+}
+
+@keyframes elastic {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  75% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Jello animation */
+.jello {
+  animation: jello 1s;
+}
+
+@keyframes jello {
+  11.1% {
+    transform: skewX(-12.5deg) skewY(-12.5deg);
+  }
+  22.2% {
+    transform: skewX(6.25deg) skewY(6.25deg);
+  }
+  33.3% {
+    transform: skewX(-3.125deg) skewY(-3.125deg);
+  }
+  44.4% {
+    transform: skewX(1.5625deg) skewY(1.5625deg);
+  }
+  55.5% {
+    transform: skewX(-0.78125deg) skewY(-0.78125deg);
+  }
+  66.6% {
+    transform: skewX(0.39063deg) skewY(0.39063deg);
+  }
+  77.7% {
+    transform: skewX(-0.19531deg) skewY(-0.19531deg);
+  }
+  88.8% {
+    transform: skewX(0.09766deg) skewY(0.09766deg);
+  }
+  100% {
+    transform: skewX(0deg) skewY(0deg);
+  }
+}
+
+/* Wobble animation */
+.wobble {
+  animation: wobble 1s;
+}
+
+@keyframes wobble {
+  0% {
+    transform: translateX(0%);
+  }
+  15% {
+    transform: translateX(-25%) rotate(-5deg);
+  }
+  30% {
+    transform: translateX(20%) rotate(3deg);
+  }
+  45% {
+    transform: translateX(-15%) rotate(-3deg);
+  }
+  60% {
+    transform: translateX(10%) rotate(2deg);
+  }
+  75% {
+    transform: translateX(-5%) rotate(-1deg);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Heartbeat animation */
+.heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite both;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.3);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.3);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+/* Swing animation */
+.swing {
+  animation: swing 1s ease-in-out;
+  transform-origin: top center;
+}
+
+@keyframes swing {
+  20% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Rubber band animation */
+.rubber-band {
+  animation: rubberBand 1s;
+}
+
+@keyframes rubberBand {
+  0% {
+    transform: scaleX(1);
+  }
+  30% {
+    transform: scaleX(1.25) scaleY(0.75);
+  }
+  40% {
+    transform: scaleX(0.75) scaleY(1.25);
+  }
+  50% {
+    transform: scaleX(1.15) scaleY(0.85);
+  }
+  65% {
+    transform: scaleX(0.95) scaleY(1.05);
+  }
+  75% {
+    transform: scaleX(1.05) scaleY(0.95);
+  }
+  100% {
+    transform: scaleX(1) scaleY(1);
+  }
+}
+
+/* Attention-seeking animations for important elements */
+.highlight-pulse {
+  animation: highlightPulse 2s infinite;
+}
+
+@keyframes highlightPulse {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(251, 191, 36, 0.3);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Success checkmark animation */
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #22c55e;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #22c55e;
+  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+}
+
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #22c55e;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #22c55e;
+  }
+}
+
+/* Responsive animation controls */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Performance optimizations */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+.animation-fill-forwards {
+  animation-fill-mode: forwards;
+}
+
+.animation-fill-backwards {
+  animation-fill-mode: backwards;
+}
+
+.animation-fill-both {
+  animation-fill-mode: both;
+}

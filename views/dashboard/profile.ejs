@@ -1,0 +1,108 @@
+
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<section class="profile-section">
+    <div class="container">
+        <div class="profile-header">
+            <h1>My Profile</h1>
+            <p>Keep your information up to date</p>
+        </div>
+        
+        <div class="profile-container">
+            <div class="profile-form-card">
+                <form id="profileForm">
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" value="<%= user.name %>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" value="<%= user.email %>" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" value="<%= user.phone %>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="preferredCountry">Preferred Country</label>
+                                <input type="text" id="preferredCountry" value="<%= user.preferredCountry %>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Professional Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profession">Profession</label>
+                                <input type="text" id="profession" value="<%= user.profession || '' %>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="experience">Experience</label>
+                                <input type="text" id="experience" value="<%= user.experience || '' %>" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="education">Education</label>
+                                <input type="text" id="education" value="<%= user.education || '' %>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="linkedin">LinkedIn Profile</label>
+                                <input type="url" id="linkedin" value="<%= user.linkedin || '' %>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Application Details</h3>
+                        <div class="form-group">
+                            <label for="relocationReadiness">Relocation Readiness</label>
+                            <input type="text" id="relocationReadiness" value="<%= user.relocationReadiness || '' %>" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicationStatus">Current Status</label>
+                            <input type="text" id="applicationStatus" value="<%= user.applicationStatus %>" readonly>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="profile-note">
+                    <p><strong>Note:</strong> To update your profile information, please contact our support team through live chat or email.</p>
+                </div>
+            </div>
+            
+            <div class="profile-sidebar">
+                <div class="status-history-card">
+                    <h3>Status History</h3>
+                    <div class="status-timeline">
+                        <% if (user.statusHistory && user.statusHistory.length > 0) { %>
+                            <% user.statusHistory.reverse().forEach(status => { %>
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <%= new Date(status.date).toLocaleDateString() %>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4><%= status.status %></h4>
+                                    <% if (status.notes) { %>
+                                        <p><%= status.notes %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <% }) %>
+                        <% } else { %>
+                            <p>No status updates yet</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

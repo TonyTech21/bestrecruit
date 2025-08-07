@@ -1,0 +1,216 @@
+
+
+<section class="admin-dashboard-section">
+    <div class="container">
+        <div class="admin-header">
+            <h1>Admin Dashboard</h1>
+            <p>Welcome back, <%= admin.name %></p>
+        </div>
+        
+        <div class="admin-nav">
+            <a href="/admin/dashboard" class="nav-btn active">Dashboard</a>
+            <a href="/admin/users" class="nav-btn">Users</a>
+            <!-- <a href="/admin/chat" class="nav-btn">Chat</a> -->
+            <a href="/admin/updates" class="nav-btn">Updates</a>
+            <span class="nav-btn admin-info">System Administrator</span>
+            <a href="#" onclick="confirmAdminLogout()" class="nav-btn logout">Logout</a>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <h3><%= stats.totalUsers %></h3>
+                    <p>Total Users</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <h3><%= stats.activeUsers %></h3>
+                    <p>Active Users</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-info">
+                    <h3><%= stats.newApplications %></h3>
+                    <p>New Applications</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-info">
+                    <h3><%= stats.inReview %></h3>
+                    <p>In Review</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📰</div>
+                <div class="stat-info">
+                    <h3><%= stats.totalUpdates %></h3>
+                    <p>Published Updates</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="recent-applications">
+            <h2>Recent Applications</h2>
+            <div class="applications-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Country</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% recentApplications.forEach(user => { %>
+                        <tr>
+                            <td><%= user.name %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.preferredCountry %></td>
+                            <td>
+                                <span class="status-badge <%= user.applicationStatus.toLowerCase().replace(/\s+/g, '-') %>">
+                                    <%= user.applicationStatus %>
+                                </span>
+                            </td>
+                            <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+                            <td>
+                                <button onclick="updateStatus('<%= user._id %>')" class="action-btn">Update</button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Admin Logout Confirmation Modal -->
+<div id="adminLogoutModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirm Logout</h3>
+        <p>Are you sure you want to log out of the admin panel?</p>
+        <div class="logout-actions">
+            <button id="cancelAdminLogout" class="btn btn-cancel">Cancel</button>
+            <button id="confirmAdminLogout" class="btn btn-confirm">Yes, Logout</button>
+        </div>
+    </div>
+</div>
+
+<!-- Status Update Modal -->
+<div id="statusModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Update Application Status</h3>
+        <form id="statusUpdateForm">
+            <input type="hidden" id="userId">
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="New">New</option>
+                    <option value="In Review">In Review</option>
+                    <option value="Documents Received">Documents Received</option>
+                    <option value="Interview Scheduled">Interview Scheduled</option>
+                    <option value="Visa Approved">Visa Approved</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="notes">Notes (Optional)</label>
+                <textarea id="notes" name="notes" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Status</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function confirmAdminLogout() {
+    document.getElementById('adminLogoutModal').style.display = 'flex';
+}
+
+document.getElementById('cancelAdminLogout').addEventListener('click', () => {
+    document.getElementById('adminLogoutModal').style.display = 'none';
+});
+
+document.getElementById('confirmAdminLogout').addEventListener('click', () => {
+    adminLogout();
+});
+
+function updateStatus(userId) {
+    document.getElementById('userId').value = userId;
+    document.getElementById('statusModal').style.display = 'flex';
+}
+
+document.getElementById('statusUpdateForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const userId = document.getElementById('userId').value;
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    
+    try {
+        const response = await fetch(`/admin/users/${userId}/status`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showNotification('Status updated successfully!', 'success');
+            document.getElementById('statusModal').style.display = 'none';
+            location.reload();
+        } else {
+            showNotification(result.message || 'Failed to update status', 'error');
+        }
+    } catch (error) {
+        showNotification('Network error. Please try again.', 'error');
+    }
+});
+
+function adminLogout() {
+    fetch('/auth/logout', { method: 'POST' })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                window.location.href = result.redirect;
+            }
+        });
+}
+
+// Modal handling
+document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.target.closest('.modal').style.display = 'none';
+    });
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+        e.target.style.display = 'none';
+    }
+});
+
+// Legacy close modal handler
+const legacyCloseBtn = document.querySelector('.close-modal');
+if (legacyCloseBtn) {
+    legacyCloseBtn.addEventListener('click', () => {
+    document.getElementById('statusModal').style.display = 'none';
+});
+}
+</script>

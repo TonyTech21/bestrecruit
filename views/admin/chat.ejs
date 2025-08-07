@@ -1,0 +1,169 @@
+
+
+<section class="admin-chat-section">
+    <div class="container">
+        <div class="admin-header">
+            <h1>Chat Management</h1>
+            <p>Manage customer conversations</p>
+        </div>
+        
+        <div class="admin-nav">
+            <a href="/admin/dashboard" class="nav-btn">Dashboard</a>
+            <a href="/admin/users" class="nav-btn">Users</a>
+            <!-- <a href="/admin/chat" class="nav-btn active">Chat</a> -->
+            <a href="/admin/updates" class="nav-btn">Updates</a>
+            <span class="nav-btn admin-info">System Administrator</span>
+            <a href="#" onclick="confirmAdminLogout()" class="nav-btn logout">Logout</a>
+        </div>
+        
+        <div class="chat-management-container">
+            <div class="chat-list">
+                <h3>Active Conversations</h3>
+                <div class="conversations-list">
+                    <% chats.forEach(chat => { %>
+                    <div class="conversation-item" onclick="loadChat('<%= chat.user.sessionId %>')">
+                        <div class="user-info">
+                            <h4><%= chat.user.name %></h4>
+                            <p><%= chat.user.email %></p>
+                        </div>
+                        <div class="conversation-meta">
+                            <% if (chat.lastMessage) { %>
+                                <div class="last-message">
+                                    <%= chat.lastMessage.message.substring(0, 50) %>...
+                                </div>
+                                <div class="message-time">
+                                    <%= new Date(chat.lastMessage.createdAt).toLocaleDateString() %>
+                                </div>
+                            <% } %>
+                            <% if (chat.unreadCount > 0) { %>
+                                <div class="unread-badge"><%= chat.unreadCount %></div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+            
+            <div class="chat-window">
+                <div id="chatHeader" class="chat-header" style="display: none;">
+                    <h3 id="chatUserName">Select a conversation</h3>
+                </div>
+                
+                <div id="chatMessages" class="chat-messages">
+                    <div class="empty-state">
+                        <p>Select a conversation to start chatting</p>
+                    </div>
+                </div>
+                
+                <div id="chatInput" class="chat-input-area" style="display: none;">
+                    <div class="chat-input-container">
+                        <input type="text" id="messageInput" placeholder="Type your message..." maxlength="500">
+                        <button id="sendMessage">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+const socket = io();
+let currentSessionId = null;
+let currentUser = null;
+
+function loadChat(sessionId) {
+    fetch(`/admin/chat/${sessionId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                currentSessionId = sessionId;
+                currentUser = data.user;
+                
+                // Update UI
+                document.getElementById('chatUserName').textContent = data.user.name;
+                document.getElementById('chatHeader').style.display = 'block';
+                document.getElementById('chatInput').style.display = 'block';
+                
+                // Load messages
+                const messagesContainer = document.getElementById('chatMessages');
+                messagesContainer.innerHTML = '';
+                
+                data.messages.forEach(message => {
+                    addMessageToChat(message);
+                });
+                
+                // Join room for real-time updates
+                socket.emit('join-room', sessionId);
+                
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        })
+        .catch(error => {
+            console.error('Error loading chat:', error);
+        });
+}
+
+function addMessageToChat(message) {
+    const messagesContainer = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${message.senderType}`;
+    
+    messageDiv.innerHTML = `
+        <div class="message-content">
+            <div class="message-text">${message.message}</div>
+            <div class="message-time">${new Date(message.createdAt || message.timestamp).toLocaleString()}</div>
+        </div>
+    `;
+    
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Send message
+document.getElementById('sendMessage').addEventListener('click', sendMessage);
+document.getElementById('messageInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    const input = document.getElementById('messageInput');
+    const message = input.value.trim();
+    
+    if (!message || !currentSessionId) return;
+    
+    // Send message via socket
+    socket.emit('chat-message', {
+        sessionId: currentSessionId,
+        sender: 'Admin',
+        senderType: 'admin',
+        message: message
+    });
+    
+    input.value = '';
+}
+
+// Listen for incoming messages
+socket.on('chat-message', (data) => {
+    if (data.sessionId === currentSessionId || currentSessionId === null) {
+        addMessageToChat(data);
+    }
+});
+
+function confirmAdminLogout() {
+    if (confirm('Are you sure you want to log out of the admin panel?')) {
+        adminLogout();
+    }
+}
+
+function adminLogout() {
+    fetch('/auth/logout', { method: 'POST' })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                window.location.href = result.redirect;
+            }
+        });
+}
+</script>

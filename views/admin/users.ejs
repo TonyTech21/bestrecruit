@@ -1,0 +1,319 @@
+
+
+<section class="admin-users-section">
+    <div class="container">
+        <div class="admin-header">
+            <h1>User Management</h1>
+            <p>Manage user applications and status</p>
+        </div>
+        
+        <div class="admin-nav">
+            <a href="/admin/dashboard" class="nav-btn">Dashboard</a>
+            <a href="/admin/users" class="nav-btn active">Users</a>
+            <!-- <a href="/admin/chat" class="nav-btn">Chat</a> -->
+            <a href="/admin/updates" class="nav-btn">Updates</a>
+            <span class="nav-btn admin-info">System Administrator</span>
+            <a href="#" onclick="confirmAdminLogout()" class="nav-btn logout">Logout</a>
+        </div>
+        
+        <div class="filters-section">
+            <form class="filters-form" method="GET">
+                <div class="filter-group">
+                    <label for="status">Filter by Status:</label>
+                    <select name="status" id="status">
+                        <option value="all" <%= query.status === 'all' ? 'selected' : '' %>>All Status</option>
+                        <option value="New" <%= query.status === 'New' ? 'selected' : '' %>>New</option>
+                        <option value="In Review" <%= query.status === 'In Review' ? 'selected' : '' %>>In Review</option>
+                        <option value="Documents Received" <%= query.status === 'Documents Received' ? 'selected' : '' %>>Documents Received</option>
+                        <option value="Interview Scheduled" <%= query.status === 'Interview Scheduled' ? 'selected' : '' %>>Interview Scheduled</option>
+                        <option value="Visa Approved" <%= query.status === 'Visa Approved' ? 'selected' : '' %>>Visa Approved</option>
+                        <option value="Rejected" <%= query.status === 'Rejected' ? 'selected' : '' %>>Rejected</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="country">Filter by Country:</label>
+                    <select name="country" id="country">
+                        <option value="all" <%= query.country === 'all' ? 'selected' : '' %>>All Countries</option>
+                        <% countries.forEach(country => { %>
+                        <option value="<%= country %>" <%= query.country === country ? 'selected' : '' %>><%= country %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-secondary">Filter</button>
+            </form>
+        </div>
+        
+        <div class="users-table-container">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Country</th>
+                        <th>Profession</th>
+                        <th>Status</th>
+                        <th>Applied</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.name %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.phone %></td>
+                        <td><%= user.preferredCountry %></td>
+                        <td><%= user.profession || 'N/A' %></td>
+                        <td>
+                            <span class="status-badge <%= user.applicationStatus.toLowerCase().replace(/\s+/g, '-') %>">
+                                <%= user.applicationStatus %>
+                            </span>
+                        </td>
+                        <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button onclick="viewUser('<%= user._id %>')" class="action-btn view">View</button>
+                                <button onclick="updateStatus('<%= user._id %>')" class="action-btn update">Update</button>
+                                <% if (user.documents && user.documents.length > 0) { %>
+                                <button onclick="downloadCV('<%= user._id %>')" class="action-btn download">Download CV</button>
+                                <% } %>
+                                <button onclick="sendEmail('<%= user._id %>', '<%= user.email %>', '<%= user.name %>')" class="action-btn email">Send Email</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        
+        <% if (totalPages > 1) { %>
+        <div class="pagination">
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <% if (i === currentPage) { %>
+                    <span class="page-btn active"><%= i %></span>
+                <% } else { %>
+                    <a href="?page=<%= i %>&status=<%= query.status || 'all' %>&country=<%= query.country || 'all' %>" class="page-btn"><%= i %></a>
+                <% } %>
+            <% } %>
+        </div>
+        <% } %>
+    </div>
+</section>
+
+<!-- Status Update Modal -->
+<div id="statusModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Update Application Status</h3>
+        <form id="statusUpdateForm">
+            <input type="hidden" id="userId">
+            <div class="form-group">
+                <label for="statusSelect">Status</label>
+                <select id="statusSelect" name="status" required>
+                    <option value="New">New</option>
+                    <option value="In Review">In Review</option>
+                    <option value="Documents Received">Documents Received</option>
+                    <option value="Interview Scheduled">Interview Scheduled</option>
+                    <option value="Visa Approved">Visa Approved</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="notes">Notes (Optional)</label>
+                <textarea id="notes" name="notes" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Status</button>
+        </form>
+    </div>
+</div>
+
+<!-- User Details Modal -->
+<div id="userModal" class="modal">
+    <div class="modal-content large">
+        <span class="close-modal">&times;</span>
+        <div id="userDetails">
+            <!-- User details will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Admin Logout Confirmation Modal -->
+<div id="adminLogoutModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirm Logout</h3>
+        <p>Are you sure you want to log out of the admin panel?</p>
+        <div class="logout-actions">
+            <button id="cancelAdminLogout" class="btn btn-cancel">Cancel</button>
+            <button id="confirmAdminLogout" class="btn btn-confirm">Yes, Logout</button>
+        </div>
+    </div>
+</div>
+
+<!-- Send Email Modal -->
+<div id="emailModal" class="modal">
+    <div class="modal-content large">
+        <span class="close-modal">&times;</span>
+        <h3>Send Email to Client</h3>
+        <form id="sendEmailForm">
+            <input type="hidden" id="clientId">
+            <div class="form-group">
+                <label for="clientEmail">To:</label>
+                <input type="email" id="clientEmail" name="clientEmail" readonly>
+            </div>
+            <div class="form-group">
+                <label for="clientName">Client Name:</label>
+                <input type="text" id="clientName" name="clientName" readonly>
+            </div>
+            <div class="form-group">
+                <label for="emailSubject">Subject:</label>
+                <input type="text" id="emailSubject" name="subject" placeholder="Enter email subject" required>
+            </div>
+            <div class="form-group">
+                <label for="emailMessage">Message:</label>
+                <textarea id="emailMessage" name="message" rows="8" placeholder="Type your message here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Email</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function confirmAdminLogout() {
+    document.getElementById('adminLogoutModal').style.display = 'flex';
+}
+
+document.getElementById('cancelAdminLogout').addEventListener('click', () => {
+    document.getElementById('adminLogoutModal').style.display = 'none';
+});
+
+document.getElementById('confirmAdminLogout').addEventListener('click', () => {
+    adminLogout();
+});
+
+function viewUser(userId) {
+    // This would typically fetch user details via AJAX
+    document.getElementById('userModal').style.display = 'flex';
+}
+
+function updateStatus(userId) {
+    document.getElementById('userId').value = userId;
+    document.getElementById('statusModal').style.display = 'flex';
+}
+
+function downloadCV(userId) {
+    // Fetch user documents and download CV
+    fetch(`/admin/users/${userId}/documents`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.documents && data.documents.length > 0) {
+                // Find the first document (resume/CV)
+                const document = data.documents[0];
+                // Create download link
+                const link = document.createElement('a');
+                link.href = `/uploads/${document.filename}`;
+                link.download = document.originalName;
+                link.click();
+            } else {
+                showNotification('No CV found for this user', 'error');
+            }
+        })
+        .catch(error => {
+            showNotification('Failed to download CV', 'error');
+        });
+}
+
+function sendEmail(userId, email, name) {
+    document.getElementById('clientId').value = userId;
+    document.getElementById('clientEmail').value = email;
+    document.getElementById('clientName').value = name;
+    document.getElementById('emailModal').style.display = 'flex';
+}
+
+document.getElementById('statusUpdateForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const userId = document.getElementById('userId').value;
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    
+    try {
+        const response = await fetch(`/admin/users/${userId}/status`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showNotification('Status updated successfully!', 'success');
+            document.getElementById('statusModal').style.display = 'none';
+            location.reload();
+        } else {
+            showNotification(result.message || 'Failed to update status', 'error');
+        }
+    } catch (error) {
+        showNotification('Network error. Please try again.', 'error');
+    }
+});
+
+document.getElementById('sendEmailForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    
+    try {
+        const response = await fetch('/admin/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showNotification('Email sent successfully!', 'success');
+            document.getElementById('emailModal').style.display = 'none';
+            document.getElementById('sendEmailForm').reset();
+        } else {
+            showNotification(result.message || 'Failed to send email', 'error');
+        }
+    } catch (error) {
+        showNotification('Network error. Please try again.', 'error');
+    }
+});
+
+function adminLogout() {
+    fetch('/auth/logout', { method: 'POST' })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                window.location.href = result.redirect;
+            }
+        });
+}
+
+// Modal handling
+document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const modal = e.target.closest('.modal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+        e.target.style.display = 'none';
+    }
+});
+</script>

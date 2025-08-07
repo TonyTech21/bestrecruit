@@ -1,0 +1,325 @@
+
+
+<section class="admin-updates-section">
+    <div class="container">
+        <div class="admin-header">
+            <h1>Updates Management</h1>
+            <p>Manage latest updates and news</p>
+        </div>
+        
+        <div class="admin-nav">
+            <a href="/admin/dashboard" class="nav-btn">Dashboard</a>
+            <a href="/admin/users" class="nav-btn">Users</a>
+            <!-- <a href="/admin/chat" class="nav-btn">Chat</a> -->
+            <a href="/admin/updates" class="nav-btn active">Updates</a>
+            <span class="nav-btn admin-info">System Administrator</span>
+            <a href="#" onclick="confirmAdminLogout()" class="nav-btn logout">Logout</a>
+        </div>
+        
+        <div class="updates-actions">
+            <button onclick="openCreateModal()" class="btn btn-primary">Create New Update</button>
+        </div>
+        
+        <div class="updates-table-container">
+            <table class="updates-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Excerpt</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% updates.forEach(update => { %>
+                    <tr>
+                        <td>
+                            <img src="/uploads/<%= update.image %>" alt="Update image" style="width: 60px; height: 40px; object-fit: cover; border-radius: 8px;">
+                        </td>
+                        <td><%= update.title %></td>
+                        <td><%= update.excerpt.substring(0, 100) %>...</td>
+                        <td><%= update.author ? update.author.name : 'Unknown' %></td>
+                        <td><%= new Date(update.createdAt).toLocaleDateString() %></td>
+                        <td>
+                            <span class="status-badge <%= update.isPublished ? 'published' : 'draft' %>">
+                                <%= update.isPublished ? 'Published' : 'Draft' %>
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button onclick="viewUpdate('<%= update._id %>')" class="action-btn view">View</button>
+                                <button onclick="deleteUpdate('<%= update._id %>')" class="action-btn delete">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        
+        <% if (totalPages > 1) { %>
+        <div class="pagination">
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <% if (i === currentPage) { %>
+                    <span class="page-btn active"><%= i %></span>
+                <% } else { %>
+                    <a href="?page=<%= i %>" class="page-btn"><%= i %></a>
+                <% } %>
+            <% } %>
+        </div>
+        <% } %>
+    </div>
+</section>
+
+<!-- Create Update Modal -->
+<div id="createUpdateModal" class="modal">
+    <div class="modal-content large">
+        <span class="close-modal">&times;</span>
+        <h3>Create New Update</h3>
+        <form id="createUpdateForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="excerpt">Excerpt</label>
+                <textarea id="excerpt" name="excerpt" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" rows="8" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Featured Image</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Create Update</button>
+        </form>
+    </div>
+</div>
+
+<style>
+.admin-updates-section {
+    padding: 8rem 0 4rem;
+    background: var(--background-light);
+    min-height: 100vh;
+}
+
+.updates-actions {
+    margin-bottom: 2rem;
+    text-align: right;
+}
+
+.updates-table-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.updates-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.updates-table th,
+.updates-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.updates-table th {
+    background: var(--background-light);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.updates-table tr:hover {
+    background: rgba(30, 64, 175, 0.05);
+}
+
+.status-badge.published {
+    background: rgba(34, 197, 94, 0.1);
+    color: var(--success-color);
+}
+
+.status-badge.draft {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+}
+
+.action-btn.delete {
+    background: var(--error-color);
+}
+
+.action-btn.delete:hover {
+    background: #dc2626;
+}
+
+.action-btn.download {
+    background: var(--success-color);
+}
+
+.action-btn.download:hover {
+    background: #16a34a;
+}
+
+.action-btn.email {
+    background: var(--secondary-color);
+}
+
+.action-btn.email:hover {
+    background: #7c3aed;
+}
+
+.admin-info {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.logout-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn-cancel {
+    background: #6b7280;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-cancel:hover {
+    background: #4b5563;
+}
+
+.btn-confirm {
+    background: var(--error-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-confirm:hover {
+    background: #dc2626;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+}
+</style>
+
+<script>
+function openCreateModal() {
+    document.getElementById('createUpdateModal').style.display = 'flex';
+}
+
+function viewUpdate(id) {
+    // Implement view functionality
+    alert('View update functionality would be implemented here');
+}
+
+function deleteUpdate(id) {
+    if (confirm('Are you sure you want to delete this update?')) {
+        fetch(`/admin/updates/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                showNotification('Update deleted successfully!', 'success');
+                location.reload();
+            } else {
+                showNotification(result.message || 'Failed to delete update', 'error');
+            }
+        })
+        .catch(error => {
+            showNotification('Network error. Please try again.', 'error');
+        });
+    }
+}
+
+document.getElementById('createUpdateForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    
+    try {
+        const response = await fetch('/admin/updates', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showNotification('Update created successfully!', 'success');
+            document.getElementById('createUpdateModal').style.display = 'none';
+            location.reload();
+        } else {
+            showNotification(result.message || 'Failed to create update', 'error');
+        }
+    } catch (error) {
+        showNotification('Network error. Please try again.', 'error');
+    }
+});
+
+function confirmAdminLogout() {
+    if (confirm('Are you sure you want to log out of the admin panel?')) {
+        adminLogout();
+    }
+}
+
+function adminLogout() {
+    fetch('/auth/logout', { method: 'POST' })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                window.location.href = result.redirect;
+            }
+        });
+}
+
+// Modal handling
+document.querySelector('.close-modal').addEventListener('click', () => {
+    document.getElementById('createUpdateModal').style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('createUpdateModal')) {
+        document.getElementById('createUpdateModal').style.display = 'none';
+    }
+});
+</script>

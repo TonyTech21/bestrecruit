@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <% if (typeof user !== 'undefined' && user && user.sessionId) { %>
+    <meta name="session-id" content="<%= user.sessionId %>" />
+    <meta name="user-name" content="<%= user.name %>" />
+    <% } %>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animations.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="preloader-content">
+        <div class="logo-container">
+          <h2>Advanze Travels</h2>
+        </div>
+        <div class="loading-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <%- include('../partials/header') %>
+
+    <!-- Main Content -->
+    <main><%- body %></main>
+
+    <!-- Footer -->
+    <%- include('../partials/footer') %>
+
+    <!-- Chat Widget -->
+    <!-- <%- include('../partials/chat-widget') %> -->
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/animations.js"></script>
+    <script src="/js/chat.js"></script>
+    <% if (!isAdminRoute) { %>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+      var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+      (function () {
+        var s1 = document.createElement("script"),
+          s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = "https://embed.tawk.to/68862f438beeee192b5d6ff2/default";
+        s1.charset = "UTF-8";
+        s1.setAttribute("crossorigin", "*");
+        s0.parentNode.insertBefore(s1, s0);
+      })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <% } %>
+  </body>
+</html>
