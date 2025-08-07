@@ -103,7 +103,7 @@ body {
 .logo{
   width: 100px;
   height: 2vh;
-  background: url('/public/img/Advanzelogo.jpg') no-repeat center center;
+  background: url('/public/img/bestlogo.jpg') no-repeat center center;
   background-size: cover;
   animation: logoFloat 3s ease-in-out infinite;
 }
@@ -171,7 +171,7 @@ body {
  .logo {
   width: 150px;
   height: 5vh;
-  background: url('/public/img/Advanzelogo.jpg') no-repeat center center;
+  background: url('/public/img/bestlogo.jpg') no-repeat center center;
   background-size: contain;
  }
 

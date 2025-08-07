@@ -48,7 +48,7 @@ const upload = multer({
 router.get("/", (req, res) => {
   try {
     res.render("home", {
-      title: "Advanze Travels - Land Your Dream Job Abroad",
+      title: "BestRecruit - Land Your Dream Job Abroad",
       user: req.session.user,
     });
   } catch (error) {
