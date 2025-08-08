@@ -2213,6 +2213,15 @@ body {
   padding: 2rem;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
+  width: 100% !important;
+}
+.document-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  width: 100% !important;
 }
 
 .card-header {
@@ -3296,6 +3305,9 @@ body {
   
   .dashboard-grid {
     grid-template-columns: 1fr;
+    width: 100% !important;
+    overflow-x: auto;
+    overflow-y: auto;
   }
   
   .support-buttons {
