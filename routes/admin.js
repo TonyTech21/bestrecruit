@@ -200,6 +200,68 @@ router.get('/users/:id/documents/:filename', requireAdmin, async (req, res) => {
   }
 });
 
+// Direct document download route - handles all document downloads
+router.get('/download/:userId/:filename', requireAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    const path = require('path');
+    const fs = require('fs');
+    const filePath = path.join(__dirname, '../uploads', req.params.filename);
+    
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).send('File not found on server');
+    }
+
+    // Find document info for proper filename
+    const document = user.documents.find(doc => doc.filename === req.params.filename);
+    const originalName = document ? document.originalName : req.params.filename;
+    
+    // Set appropriate headers for download
+    res.setHeader('Content-Disposition', `attachment; filename="${originalName}"`);
+    
+    // Send file directly
+    res.sendFile(filePath);
+  } catch (error) {
+    console.error('Direct download error:', error);
+    res.status(500).send('Failed to download file');
+  }
+});
+
+// Get all user documents for download
+router.get('/users/:id/all-documents', requireAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const path = require('path');
+    const fs = require('fs');
+    
+    // Filter documents that actually exist on the server
+    const availableDocuments = user.documents.filter(doc => {
+      const filePath = path.join(__dirname, '../uploads', doc.filename);
+      return fs.existsSync(filePath);
+    });
+
+    res.json({ 
+      success: true, 
+      documents: availableDocuments,
+      user: {
+        name: user.name,
+        email: user.email
+      }
+    });
+  } catch (error) {
+    console.error('Get all documents error:', error);
+    res.status(500).json({ success: false, message: 'Failed to get documents' });
+  }
+});
 // Get user profile details including profile picture
 router.get('/users/:id/profile', requireAdmin, async (req, res) => {
   try {

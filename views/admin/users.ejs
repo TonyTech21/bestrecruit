@@ -65,9 +65,12 @@
                         <td>
                             <div class="user-info-cell">
                                 <% if (user.profilePicture) { %>
-                                    <img src="/uploads/<%= user.profilePicture %>" alt="Profile" class="user-avatar" style="width: 50px; height: 50px; object-fit: cover; border-radius: 25%;">
+                                    <img src="/uploads/<%= user.profilePicture %>" alt="Profile" class="user-avatar" 
+                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 25%; border: 2px solid #e5e7eb;"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="user-avatar-placeholder" style="display: none; width: 50px; height: 50px; background: #f3f4f6; border-radius: 25%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #6b7280;">👤</div>
                                 <% } else { %>
-                                    <div class="user-avatar-placeholder">👤</div>
+                                    <div class="user-avatar-placeholder" style="width: 50px; height: 50px; background: #f3f4f6; border-radius: 25%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #6b7280; border: 2px solid #e5e7eb;">👤</div>
                                 <% } %>
                                 <span><%= user.name %></span>
                             </div>
@@ -86,9 +89,7 @@
                             <div class="action-buttons">
                                 <button onclick="viewUser('<%= user._id %>')" class="action-btn view">View</button>
                                 <button onclick="updateStatus('<%= user._id %>')" class="action-btn update">Update</button>
-                                <% if (user.documents && user.documents.length > 0) { %>
-                                <button onclick="downloadCV('<%= user._id %>')" class="action-btn download">CV</button>
-                                <% } %>
+                                <button onclick="downloadUserCV('<%= user._id %>')" class="action-btn download">Download CV</button>
                                 <button onclick="sendEmail('<%= user._id %>', '<%= user.email %>', '<%= user.name %>')" class="action-btn email">Send Email</button>
                             </div>
                         </td>
@@ -204,8 +205,102 @@ document.getElementById('confirmAdminLogout').addEventListener('click', () => {
 });
 
 function viewUser(userId) {
-    // This would typically fetch user details via AJAX
+    const userDetails = document.getElementById('userDetails');
+    userDetails.innerHTML = '<div class="loading-spinner">Loading user details...</div>';
     document.getElementById('userModal').style.display = 'flex';
+    
+    // Fetch user profile data
+    fetch(`/admin/users/${userId}/profile`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayUserDetails(data.user);
+            } else {
+                userDetails.innerHTML = '<div class="error-message">Failed to load user details</div>';
+            }
+        })
+        .catch(error => {
+            console.error('Error loading user details:', error);
+            userDetails.innerHTML = '<div class="error-message">Error loading user details</div>';
+        });
+}
+
+function displayUserDetails(user) {
+    const userDetails = document.getElementById('userDetails');
+    
+    const profilePictureHtml = user.profilePicture 
+        ? `<img src="/uploads/${user.profilePicture}" alt="Profile Picture" style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 4px solid var(--primary-color);" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+           <div style="display: none; width: 120px; height: 120px; background: #f3f4f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #6b7280; border: 4px solid var(--primary-color);">👤</div>`
+        : `<div style="width: 120px; height: 120px; background: #f3f4f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #6b7280; border: 4px solid var(--primary-color);">👤</div>`;
+    
+    const documentsHtml = user.documents && user.documents.length > 0 
+        ? user.documents.map(doc => `
+            <div class="document-item" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: #f9fafb; border-radius: 8px; margin-bottom: 0.5rem;">
+                <div>
+                    <div style="font-weight: 600; color: var(--text-primary);">${doc.originalName}</div>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary);">${(doc.size / (1024 * 1024)).toFixed(2)} MB</div>
+                </div>
+                <button onclick="downloadUserDocument('${user._id}', '${doc.filename}')" class="action-btn download" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Download</button>
+            </div>
+        `).join('')
+        : '<p style="color: var(--text-secondary); font-style: italic;">No documents uploaded</p>';
+    
+    userDetails.innerHTML = `
+        <div style="display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start;">
+            <div style="text-align: center;">
+                ${profilePictureHtml}
+                <h3 style="margin: 1rem 0 0.5rem 0; color: var(--text-primary);">${user.name}</h3>
+                <p style="color: var(--text-secondary); margin: 0;">${user.email}</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <h4 style="color: var(--primary-color); margin-bottom: 1rem; border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem;">Personal Information</h4>
+                    <div style="display: grid; gap: 0.75rem;">
+                        <div><strong>Phone:</strong> ${user.phone || 'Not provided'}</div>
+                        <div><strong>Preferred Country:</strong> ${user.preferredCountry || 'Not specified'}</div>
+                        <div><strong>Status:</strong> <span class="status-badge ${user.applicationStatus.toLowerCase().replace(/\s+/g, '-')}">${user.applicationStatus}</span></div>
+                        <div><strong>Joined:</strong> ${new Date(user.createdAt).toLocaleDateString()}</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="color: var(--primary-color); margin-bottom: 1rem; border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem;">Professional Details</h4>
+                    <div style="display: grid; gap: 0.75rem;">
+                        <div><strong>Profession:</strong> ${user.profession || 'Not specified'}</div>
+                        <div><strong>Experience:</strong> ${user.experience || 'Not specified'}</div>
+                        <div><strong>Education:</strong> ${user.education || 'Not specified'}</div>
+                        <div><strong>LinkedIn:</strong> ${user.linkedin ? `<a href="${user.linkedin}" target="_blank" style="color: var(--primary-color);">View Profile</a>` : 'Not provided'}</div>
+                        <div><strong>Relocation:</strong> ${user.relocationReadiness || 'Not specified'}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <h4 style="color: var(--primary-color); margin-bottom: 1rem; border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem;">Documents</h4>
+            <div style="max-height: 300px; overflow-y: auto;">
+                ${documentsHtml}
+            </div>
+        </div>
+        
+        ${user.statusHistory && user.statusHistory.length > 0 ? `
+        <div style="margin-top: 2rem;">
+            <h4 style="color: var(--primary-color); margin-bottom: 1rem; border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem;">Status History</h4>
+            <div style="max-height: 200px; overflow-y: auto;">
+                ${user.statusHistory.reverse().map(status => `
+                    <div style="padding: 0.75rem; background: #f9fafb; border-radius: 8px; margin-bottom: 0.5rem; border-left: 4px solid var(--primary-color);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                            <strong style="color: var(--text-primary);">${status.status}</strong>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">${new Date(status.date).toLocaleDateString()}</span>
+                        </div>
+                        ${status.notes ? `<p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">${status.notes}</p>` : ''}
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+        ` : ''}
+    `;
 }
 
 function updateStatus(userId) {
@@ -213,24 +308,28 @@ function updateStatus(userId) {
     document.getElementById('statusModal').style.display = 'flex';
 }
 
-function downloadCV(userId) {
-    // Fetch user documents and download CV
-    fetch(`/admin/users/${userId}/documents`)
+function downloadUserCV(userId) {
+    // Fetch user documents and download the first available document (CV)
+    fetch(`/admin/users/${userId}/all-documents`)
         .then(response => response.json())
         .then(data => {
             if (data.success && data.documents && data.documents.length > 0) {
-                // Find the first document (resume/CV)
                 const document = data.documents[0];
-                // Use the new download route
-                window.open(`/admin/users/${userId}/documents/${document.filename}`, '_blank');
+                // Use direct download route
+                window.location.href = `/admin/download/${userId}/${document.filename}`;
             } else {
                 showNotification('No CV found for this user', 'error');
             }
         })
         .catch(error => {
-            console.error('Download CV error:', error);
+            console.error('Download user CV error:', error);
             showNotification('Failed to download CV', 'error');
         });
+}
+
+function downloadUserDocument(userId, filename) {
+    // Direct download using the new route
+    window.location.href = `/admin/download/${userId}/${filename}`;
 }
 
 function sendEmail(userId, email, name) {
