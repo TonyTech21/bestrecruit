@@ -221,16 +221,14 @@ function downloadCV(userId) {
             if (data.success && data.documents && data.documents.length > 0) {
                 // Find the first document (resume/CV)
                 const document = data.documents[0];
-                // Create download link
-                const link = document.createElement('a');
-                link.href = `/uploads/${document.filename}`;
-                link.download = document.originalName;
-                link.click();
+                // Use the new download route
+                window.open(`/admin/users/${userId}/documents/${document.filename}`, '_blank');
             } else {
                 showNotification('No CV found for this user', 'error');
             }
         })
         .catch(error => {
+            console.error('Download CV error:', error);
             showNotification('Failed to download CV', 'error');
         });
 }
