@@ -166,6 +166,75 @@ router.get('/users/:id/documents', requireAdmin, async (req, res) => {
   }
 });
 
+// Download user document
+router.get('/users/:id/documents/:filename', requireAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const document = user.documents.find(doc => doc.filename === req.params.filename);
+    if (!document) {
+      return res.status(404).json({ success: false, message: 'Document not found' });
+    }
+
+    const path = require('path');
+    const fs = require('fs');
+    const filePath = path.join(__dirname, '../uploads', document.filename);
+    
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ success: false, message: 'File not found on server' });
+    }
+
+    // Set appropriate headers for download
+    res.setHeader('Content-Disposition', `attachment; filename="${document.originalName}"`);
+    res.setHeader('Content-Type', document.mimetype || 'application/octet-stream');
+    
+    // Send file
+    res.sendFile(filePath);
+  } catch (error) {
+    console.error('Download document error:', error);
+    res.status(500).json({ success: false, message: 'Failed to download document' });
+  }
+});
+
+// Get user profile details including profile picture
+router.get('/users/:id/profile', requireAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    res.json({ 
+      success: true, 
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        preferredCountry: user.preferredCountry,
+        experience: user.experience,
+        education: user.education,
+        profession: user.profession,
+        linkedin: user.linkedin,
+        relocationReadiness: user.relocationReadiness,
+        profilePicture: user.profilePicture,
+        documents: user.documents,
+        applicationStatus: user.applicationStatus,
+        statusHistory: user.statusHistory,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+      }
+    });
+  } catch (error) {
+    console.error('Get user profile error:', error);
+    res.status(500).json({ success: false, message: 'Failed to get user profile' });
+  }
+});
+
 // Send email to client
 router.post('/send-email', requireAdmin, [
   body('clientEmail').isEmail().withMessage('Valid email is required'),

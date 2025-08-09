@@ -62,7 +62,16 @@
                 <tbody>
                     <% users.forEach(user => { %>
                     <tr>
-                        <td><%= user.name %></td>
+                        <td>
+                            <div class="user-info-cell">
+                                <% if (user.profilePicture) { %>
+                                    <img src="/uploads/<%= user.profilePicture %>" alt="Profile" class="user-avatar">
+                                <% } else { %>
+                                    <div class="user-avatar-placeholder">👤</div>
+                                <% } %>
+                                <span><%= user.name %></span>
+                            </div>
+                        </td>
                         <td><%= user.email %></td>
                         <td><%= user.phone %></td>
                         <td><%= user.preferredCountry %></td>
@@ -78,7 +87,7 @@
                                 <button onclick="viewUser('<%= user._id %>')" class="action-btn view">View</button>
                                 <button onclick="updateStatus('<%= user._id %>')" class="action-btn update">Update</button>
                                 <% if (user.documents && user.documents.length > 0) { %>
-                                <button onclick="downloadCV('<%= user._id %>')" class="action-btn download">Download CV</button>
+                                <button onclick="downloadCV('<%= user._id %>')" class="action-btn download">CV</button>
                                 <% } %>
                                 <button onclick="sendEmail('<%= user._id %>', '<%= user.email %>', '<%= user.name %>')" class="action-btn email">Send Email</button>
                             </div>
@@ -134,8 +143,9 @@
 <div id="userModal" class="modal">
     <div class="modal-content large">
         <span class="close-modal">&times;</span>
+        <h3>User Profile Details</h3>
         <div id="userDetails">
-            <!-- User details will be loaded here -->
+            <div class="loading-spinner">Loading user details...</div>
         </div>
     </div>
 </div>
